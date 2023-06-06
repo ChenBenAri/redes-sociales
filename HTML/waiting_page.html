@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>waiting_page</title>
+  <link rel="stylesheet" href="../CSS/style_waiting_page.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Por favor, aguarde enquanto processamos sua solicitação!</h1>
+  </div>
+  
+  <div class="content">
+    <div class="details-container">
+      <h2 id="chosenFriends">Amigos Escolhidos:</h2>
+      <h2 id="chosenAction">Ação Escolhida:</h2> 
+      <p id="chosenActionText"></p>
+    </div>
+  
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <p id="countdown">60</p>
+    </div>
+  
+    <p id="instaMessage" style="display:none;">Confira seu Insta agora!</p>
+    <button id="moreActions" style="display:none;">Mais ações</button>
+  </div>
+
+  <script src="/js/effects_waiting_page.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>

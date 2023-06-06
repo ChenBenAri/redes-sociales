@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Insta Actions</title>
+  <link rel="stylesheet" href="../CSS/style_insta_actions.css">
+</head>
+<body>
+  <header>
+    <h1>Suas escolhas foram:</h1>
+  </header>
+  <div class="content">
+    <br><br>
+    <div class="choices-container">
+      <div class="choice">
+        <img src="../Assets/unknown_person.png" alt="Unknown Person">
+        <p id="chosenFriend1">Nome Amigo 1</p>
+      </div>
+
+      <div class="choice">
+        <img src="../Assets/unknown_person.png" alt="Unknown Person">
+        <p id="chosenFriend2">Nome Amigo 2</p>
+      </div>
+
+      <div class="choice">
+        <img src="../Assets/unknown_person.png" alt="Unknown Person">
+        <p id="chosenFriend3">Nome Amigo 3</p>
+      </div>
+    </div>
+    <h1>Ação escolhida:</h1>
+    <br>
+
+    <p id="chosenAction"></p>
+
+    <button class="blue-button" onclick="muteStories(); localStorage.setItem('chosenAction', 'Silenciar Histórias'); location.href='waiting_page.html'">Silenciar Histórias</button>
+    <button class="blue-button" onclick="mutePosts(); localStorage.setItem('chosenAction', 'Silenciar Publicações'); location.href='waiting_page.html'">Silenciar Publicações</button>
+    <button class="blue-button" onclick="closeFriends(); localStorage.setItem('chosenAction', 'Amigos Próximos'); location.href='waiting_page.html'">Amigos Próximos</button>
+    <button class="blue-button" onclick="unfollow(); localStorage.setItem('chosenAction', 'Deixar de Seguir'); location.href='waiting_page.html'">Deixar de Seguir</button>
+
+    <script src="/js/effects_insta_actions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </div>
+</body>
+</html>

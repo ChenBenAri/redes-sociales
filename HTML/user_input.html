@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>user_input</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../CSS/style_user_input.css">
+</head>
+<body>
+<header>
+  <div id="left-header">
+    <h1>Últimas pesquisas do usuário: <span id="username">socialorderaccount</span></h1>
+  </div>
+  <div id="right-header">
+    <h1>Quais amigos você gostaria de escolher?</h1>
+  </div>
+</header>
+
+<div id="left-side">
+  <div id="content-container">
+    <section id="lastSearchesSection">
+      <div id="table-container">
+        <table id="lastSearchesTable">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- This will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="right-side">
+  <form id="friendForm">
+    <div class="input-container">
+      <label for="friend1">Amigo 1:</label>
+      <input type="text" id="friend1" placeholder="Adicionar amigos" />
+    </div>
+
+    <div class="input-container">
+      <label for="friend2">Amigo 2:</label>
+      <input type="text" id="friend2" placeholder="Adicionar amigos" />
+    </div>
+
+    <div class="input-container">
+      <label for="friend3">Amigo 3:</label>
+      <input type="text" id="friend3" placeholder="Adicionar amigos" />
+    </div>
+
+    <button type="submit" id="searchButton">Pesquisar</button>
+
+    <h2 id="yourChoices">Suas escolhas:</h2>
+    <ul id="friendList">
+      <li><strong>1. </strong></li>
+      <li><strong>2. </strong></li>
+      <li><strong>3. </strong></li>
+    </ul>
+
+    <button id="confirmButton">Confirmar</button>
+  </form>
+
+  <p id="note"></p>
+
+  <button id="useLastNamesButton"></button>
+</div>
+
+<script src="/js/effects_user_input.js"></script>
+</body>
+</html>
