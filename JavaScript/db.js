@@ -1,9 +1,9 @@
- // db.js //mongodb+srv://socialorder:industrial4@socialorder.k8xopm5.mongodb.net/?retryWrites=true&w=majority
+ // db.js //mongodb+srv://*****************
  const mongoose = require('mongoose');
  const express = require('express');
  const app = express();
  
- const uri = 'mongodb+srv://socialorder:industrial4@socialorder.k8xopm5.mongodb.net/?retryWrites=true&w=majority';
+ const uri = '**************';
  
  const options = {
    useNewUrlParser: true,
