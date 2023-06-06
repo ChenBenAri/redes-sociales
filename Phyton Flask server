@@ -1,0 +1,200 @@
+import logging
+import subprocess
+import os
+from pathlib import Path
+
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+THIS_DIR = Path(__file__).parent
+CYPRESS_DIR = THIS_DIR.joinpath("cyscript")
+app.logger.setLevel(logging.INFO)
+app.logger.info("test")
+##in edition
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+def run_cypress(spec: str, **args):
+    command = ["npx", "cypress", "run", "--spec", spec]
+    if args:
+        # Pass the arguments as environment variables to Cypress
+        for key, value in args.items():
+            command.append(f"--env {key}={value}")
+    return subprocess.run(command, cwd=CYPRESS_DIR, shell=True)
+name1 = ""
+name2 = ""
+name3 = ""
+user_name = ""
+password = ""
+
+@app.route('/mutestories', methods=['POST'])
+def mutestories():
+    global name1, name2, name3, user_name, password
+    app.logger.info("mutestories")
+    data = request.get_json()
+    name1 = str(data.get('name1'))
+    name2 = str(data.get('name2'))
+    name3 = str(data.get('name3'))
+    user_name = str(data.get('user_name'))
+    password = str(data.get('password'))
+    data_copy = data.copy()
+    data_copy['password'] = '*****'
+    print("Received data:", data_copy)     # Set the environment variables
+    os.environ['name1'] = name1
+    os.environ['name2'] = name2
+    os.environ['name3'] = name3
+    os.environ['user_name'] = user_name
+    os.environ['password'] = password
+    result = run_cypress("cypress/e2e/mute_stories.cy.js")
+    app.logger.info("Returncode: %s", result.returncode)
+    success = (result.returncode == 0)
+    if success:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 400
+
+@app.route('/muteposts', methods=['POST'])
+def muteposts():
+    global name1, name2, name3, user_name, password
+    app.logger.info("muteposts")
+    data = request.get_json()
+    name1 = str(data.get('name1'))
+    name2 = str(data.get('name2'))
+    name3 = str(data.get('name3'))
+    user_name = str(data.get('user_name'))
+    password = str(data.get('password'))
+    data_copy = data.copy()
+    data_copy['password'] = '*****'
+    print("Received data:", data_copy)     # Set the environment variables
+    os.environ['name1'] = name1
+    os.environ['name2'] = name2
+    os.environ['name3'] = name3
+    os.environ['user_name'] = user_name
+    os.environ['password'] = password
+    result = run_cypress("cypress/e2e/mute_posts.cy.js")
+    app.logger.info("Returncode: %s", result.returncode)
+    success = (result.returncode == 0)
+    if success:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 400
+
+@app.route('/closefriends', methods=['POST'])
+def closefriends():
+    global name1, name2, name3, user_name, password
+    app.logger.info("closefriends")
+    data = request.get_json()
+    name1 = str(data.get('name1'))
+    name2 = str(data.get('name2'))
+    name3 = str(data.get('name3'))
+    user_name = str(data.get('user_name'))
+    password = str(data.get('password'))
+    data_copy = data.copy()
+    data_copy['password'] = '*****'
+    print("Received data:", data_copy)     # Set the environment variables
+    os.environ['name1'] = name1
+    os.environ['name2'] = name2
+    os.environ['name3'] = name3
+    os.environ['user_name'] = user_name
+    os.environ['password'] = password
+    result = run_cypress("cypress/e2e/close_friends.cy.js")
+    app.logger.info("Returncode: %s", result.returncode)
+    success = (result.returncode == 0)
+    if success:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 400
+
+@app.route('/unfollow', methods=['POST'])
+def unfollow():
+    global name1, name2, name3, user_name, password
+    app.logger.info("unfollow")
+    data = request.get_json()
+    name1 = str(data.get('name1'))
+    name2 = str(data.get('name2'))
+    name3 = str(data.get('name3'))
+    user_name = str(data.get('user_name'))
+    password = str(data.get('password'))
+    data_copy = data.copy()
+    data_copy['password'] = '*****'
+    print("Received data:", data_copy)
+    # Set the environment variables
+    os.environ['name1'] = name1
+    os.environ['name2'] = name2
+    os.environ['name3'] = name3
+    os.environ['user_name'] = user_name
+    os.environ['password'] = password
+    result = run_cypress("cypress/e2e/unfollow.cy.js")
+    app.logger.info("Returncode: %s", result.returncode)
+    success = (result.returncode == 0)
+    if success:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 400
+
+@app.route('/', methods=['GET'])
+def get_data():
+    global name1, name2, name3, user_name, password
+    data = {
+        "name_1": name1,
+        "name_2": name2,
+        "name_3": name3,
+        "user_name": user_name,
+        "password": password
+    }
+    return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+incomes = [
+    { 'description': 'salary', 'amount': 5000 }
+]
+
+@app.route('/')
+def say_hello():
+    app.logger.info('Hello')
+    return jsonify('Hello')
+
+@app.route('/get-values')
+def get_values():
+    # Extract the values from the query parameters
+    user_name = request.args.get('user_name')
+    password = request.args.get('password')
+    name1 = request.args.get('name1')
+    name2 = request.args.get('name2')
+    name3 = request.args.get('name3')
+
+    # Create a dictionary with the extracted values
+    data = {
+        "user_name": user_name,
+        "password": password,
+        "name1": name1,
+        "name2": name2,
+        "name3": name3
+    }
+    return jsonify(data)
+
+##original
+@app.route('/login')
+def login():
+    app.logger.info("Logging in")
+    result = run_cypress("cypress/e2e/login.cy.js")
+    success = (result.returncode == 0)
+    # success = True
+    if success:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False}), 400
+
+@app.route('/incomes')
+def get_incomes():
+    return jsonify(incomes)
+
+
+@app.route('/incomes', methods=['POST'])
+def add_income():
+    incomes.append(request.get_json())
+    return '', 204
+
+
